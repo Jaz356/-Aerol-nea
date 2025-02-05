@@ -1,10 +1,9 @@
 <?php
 
+namespace App\Http\Controllers\Api;
+
 use App\Models\Flight;
-use Tests\Feature\flights;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use PHPUnit\TextUI\Configuration\Variable;
 use App\Http\Controllers\Controller;
 
 class FlightController extends Controller
