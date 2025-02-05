@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Plane extends Model
 {
     use HasFactory;
-    
     protected $fillable = [
-    'Plane_no',
+     'name',
+     'model',
      'capacity',
-    ];
+];
 
    public function flights()
    {
