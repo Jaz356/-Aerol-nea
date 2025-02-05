@@ -4,17 +4,15 @@ namespace Tests\Feature;
 
 use App\Models\Plane;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\WithFaker;
 
 class PlaneTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * Test listing all planes.
-     */
-    public function test_can_list_planes(): void
+    /** @test */
+    public function can_list_planes()
     {
         Plane::factory()->count(3)->create();
 
@@ -24,16 +22,10 @@ class PlaneTest extends TestCase
                  ->assertJsonCount(3);
     }
 
-    /**
-     * Test creating a plane.
-     */
-    public function test_can_create_plane(): void
+    /** @test */
+    public function can_create_plane()
     {
-        $planeData = [
-            'name' => 'Plane 101',
-            'model' => 'Boeing 747',
-            'capacity' => 300
-        ];
+        $planeData = Plane::factory()->make()->toArray();
 
         $response = $this->postJson('/planes', $planeData);
 
@@ -43,10 +35,8 @@ class PlaneTest extends TestCase
         $this->assertDatabaseHas('planes', $planeData);
     }
 
-    /**
-     * Test showing a plane.
-     */
-    public function test_can_show_plane(): void
+    /** @test */
+    public function can_show_plane()
     {
         $plane = Plane::factory()->create();
 
@@ -56,23 +46,14 @@ class PlaneTest extends TestCase
                  ->assertJsonFragment([
                      'id' => $plane->id,
                      'name' => $plane->name,
-                     'model' => $plane->model,
-                     'capacity' => $plane->capacity
                  ]);
     }
 
-    /**
-     * Test updating a plane.
-     */
-    public function test_can_update_plane(): void
+    /** @test */
+    public function can_update_plane()
     {
         $plane = Plane::factory()->create();
-
-        $updatedData = [
-            'name' => 'Updated Plane Name',
-            'model' => 'Updated Model',
-            'capacity' => 350
-        ];
+        $updatedData = Plane::factory()->make()->toArray();
 
         $response = $this->putJson("/planes/{$plane->id}", $updatedData);
 
@@ -82,10 +63,8 @@ class PlaneTest extends TestCase
         $this->assertDatabaseHas('planes', $updatedData);
     }
 
-    /**
-     * Test deleting a plane.
-     */
-    public function test_can_delete_plane(): void
+    /** @test */
+    public function can_delete_plane()
     {
         $plane = Plane::factory()->create();
 

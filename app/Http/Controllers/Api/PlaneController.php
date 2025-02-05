@@ -23,10 +23,15 @@ class PlaneController extends Controller
      */
     public function store(Request $request)
     {
-        $plane = new Plane();
-        $plane->name = $request->name;
-        $plane->model = $request->model;
-        $plane->capacity = $request->capacity;
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'model' => 'required|string|max:255',
+            'manufacturer' => 'required|string|max:255',
+            'capacity' => 'required|integer',
+            'year' => 'required|integer',
+        ]);
+
+        $plane = new Plane($validatedData);
         $plane->save();
 
         return response()->json($plane, 201);
@@ -51,14 +56,18 @@ class PlaneController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'name' => 'sometimes|required|string|max:255',
+            'model' => 'sometimes|required|string|max:255',
+            'manufacturer' => 'sometimes|required|string|max:255',
+            'capacity' => 'sometimes|required|integer',
+            'year' => 'sometimes|required|integer',
+        ]);
+
         $plane = Plane::find($id);
 
         if ($plane) {
-            $plane->name = $request->name;
-            $plane->model = $request->model;
-            $plane->capacity = $request->capacity;
-            $plane->save();
-
+            $plane->update($validatedData);
             return response()->json($plane, 200);
         } else {
             return response()->json(['error' => 'Plane not found'], 404);
