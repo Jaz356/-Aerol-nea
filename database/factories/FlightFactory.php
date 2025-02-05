@@ -3,7 +3,9 @@
 namespace Database\Factories;
 
 use App\Models\Flight;
+use App\Models\Plane;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Faker\Generator as Faker;
 
 class FlightFactory extends Factory
 {
@@ -12,12 +14,17 @@ class FlightFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->word,
+            'name' => $this->faker->name,
             'airline' => $this->faker->company,
-            'departure_time' => $this->faker->dateTimeBetween('now', '+1 week'),
-            'arrival_time' => $this->faker->dateTimeBetween('+1 week', '+2 weeks'),
-            'departure_airport' => $this->faker->city,
-            'arrival_airport' => $this->faker->city,
+            'flight_no' => $this->faker->unique()->numerify('FL###'),
+            'date' => $this->faker->date,
+            'departure_time' => $this->faker->dateTime,
+            'arrival_time' => $this->faker->dateTime,
+            'departure' => $this->faker->city,
+            'arrival' => $this->faker->city,
+            'booked_seats' => $this->faker->numberBetween(0, 200),
+            'plane_id' => Plane::factory(), // Ensure this line is correct
+            'available' => $this->faker->boolean,
         ];
     }
 }

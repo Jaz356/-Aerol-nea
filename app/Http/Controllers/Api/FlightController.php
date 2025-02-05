@@ -22,9 +22,12 @@ class FlightController extends Controller
      */
     public function store(Request $request)
     {
-        $flight = new Flight();
-        $flight->name = $request->name;
-        $flight->destination = $request->destination;
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'destination' => 'required|string|max:255',
+        ]);
+
+        $flight = new Flight($validatedData);
         $flight->save();
 
         return response()->json($flight, 201);
@@ -48,13 +51,15 @@ class FlightController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'name' => 'sometimes|required|string|max:255',
+            'destination' => 'sometimes|required|string|max:255',
+        ]);
+
         $flight = Flight::find($id);
 
         if ($flight) {
-            $flight->name = $request->name;
-            $flight->destination = $request->destination;
-            $flight->save();
-
+            $flight->update($validatedData);
             return response()->json($flight, 200);
         } else {
             return response()->json(['error' => 'Flight not found'], 404);

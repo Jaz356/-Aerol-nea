@@ -13,15 +13,21 @@ return new class extends Migration
     {
         Schema::create('flights', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('flight_no');
             $table->date('date');
+            $table->timestamp('departure_time');
+            $table->timestamp('arrival_time');
             $table->string('departure');
             $table->string('arrival');
-            $table->integer('booked_seats')->default(value: 0);
-            $table->foreignId('plane_id')->constrained("planes");
-            $table->boolean('aviable')->default(value: true);
+            $table->integer('booked_seats')->default(0);
+            $table->foreignId('plane_id')->constrained('planes');
+            $table->boolean('available')->default(true);
+            $table->string('airline');
             $table->timestamps();
         });
     }
+
     /**
      * Reverse the migrations.
      */
