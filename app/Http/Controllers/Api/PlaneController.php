@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Models\Plane; // Import the Plane model
+use App\Models\Plane;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class PlaneController extends Controller
 {
@@ -16,6 +17,7 @@ class PlaneController extends Controller
 
         return response()->json($planes, 200);
     }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -43,6 +45,7 @@ class PlaneController extends Controller
             return response()->json(['error' => 'Plane not found'], 404);
         }
     }
+
     /**
      * Update the specified resource in storage.
      */
