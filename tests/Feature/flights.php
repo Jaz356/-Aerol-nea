@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Flight;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class FlightTest extends TestCase
@@ -29,7 +30,7 @@ class FlightTest extends TestCase
     public function test_can_create_flight(): void
     {
         $flightData = [
-            'name' => 'Flight 101',
+            'flight_no' => 'Flight 101',
             'destination' => 'New York'
         ];
 
@@ -53,7 +54,7 @@ class FlightTest extends TestCase
         $response->assertStatus(200)
                  ->assertJsonFragment([
                      'id' => $flight->id,
-                     'name' => $flight->name,
+                     'flight_no' => $flight->name,
                      'destination' => $flight->destination
                  ]);
     }
@@ -66,7 +67,7 @@ class FlightTest extends TestCase
         $flight = Flight::factory()->create();
 
         $updatedData = [
-            'name' => 'Updated Flight Name',
+            'flight_no' => 'Updated Flight Name',
             'destination' => 'Updated Destination'
         ];
 
