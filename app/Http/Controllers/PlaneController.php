@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Plane;
+use App\Models\Plane; // Import the Plane model
 use Illuminate\Http\Request;
 
 class PlaneController extends Controller
@@ -12,7 +12,9 @@ class PlaneController extends Controller
      */
     public function index()
     {
-        //
+        $planes = Plane::all();
+
+        return response()->json($planes, 200);
     }
 
     /**
@@ -28,21 +30,33 @@ class PlaneController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $plane = new Plane();
+        $plane->name = $request->name;
+        $plane->model = $request->model;
+        $plane->capacity = $request->capacity;
+        $plane->save();
+
+        return response()->json($plane, 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Plane $plane)
+    public function show($id)
     {
-        //
+        $plane = Plane::find($id);
+
+        if ($plane) {
+            return response()->json($plane, 200);
+        } else {
+            return response()->json(['error' => 'Plane not found'], 404);
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Plane $plane)
+    public function edit($id)
     {
         //
     }
@@ -50,16 +64,34 @@ class PlaneController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Plane $plane)
+    public function update(Request $request, $id)
     {
-        //
+        $plane = Plane::find($id);
+
+        if ($plane) {
+            $plane->name = $request->name;
+            $plane->model = $request->model;
+            $plane->capacity = $request->capacity;
+            $plane->save();
+
+            return response()->json($plane, 200);
+        } else {
+            return response()->json(['error' => 'Plane not found'], 404);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Plane $plane)
+    public function destroy($id)
     {
-        //
+        $plane = Plane::find($id);
+
+        if ($plane) {
+            $plane->delete();
+            return response()->json(['message' => 'Plane deleted'], 200);
+        } else {
+            return response()->json(['error' => 'Plane not found'], 404);
+        }
     }
 }
