@@ -1,12 +1,21 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PlaneController;
-use App\Http\Controllers\FlightController;
 
-Route::get('/', function () {
-        return view('welcome');
-    });
+Route::get('/flight-board', function () {
+    $flights = App\Models\Flight::all();
+    return view('flight_board', ['flights' => $flights]);
+});
 
-Route::resource('flights', FlightController::class);
-Route::resource('planes', PlaneController::class);
+Route::get('/booking', function () {
+    return view('booking');
+});
+
+Route::post('/book-flight', 'BookingController@store');
+
+Route::get('/booked', 'BookingController@index');
+
+Route::get('/flight-logs', function () {
+    $logs = App\Models\Flight::all();
+    return view('flight_logs', ['logs' => $logs]);
+});
