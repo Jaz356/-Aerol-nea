@@ -1,6 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Flight;
+
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::get('/flight-board', function () {
     $flights = App\Models\Flight::all();

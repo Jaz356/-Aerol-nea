@@ -12,6 +12,26 @@ h1 {
     color: #0044cc; /* Blue */
 }
 
+.buttons {
+    text-align: center;
+    margin: 20px;
+}
+
+.button {
+    padding: 10px 20px;
+    background-color: #00796b; /* Green */
+    color: #fff;
+    border: none;
+    text-decoration: none;
+    margin: 0 10px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #004d40; /* Darker green */
+}
+
 table {
     width: 80%;
     margin: 20px auto;
