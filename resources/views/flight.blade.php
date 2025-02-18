@@ -1,30 +1,32 @@
+<!-- filepath: /c:/Users/Jiz/OneDrive/SOMOSF5/Aerolinea/resources/views/flight_board.php -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Flights</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title>Flight Board</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="container mt-5">
-    <h1 class="mb-4">Flights</h1>
-    <table class="table table-bordered">
+    <h1>Flight Board</h1>
+    <table>
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Name</th>
+                <th>Flight Number</th>
                 <th>Destination</th>
+                <th>Departure Time</th>
+                <th>Status</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($flights as $flight)
+            <?php foreach ($flights as $flight): ?>
                 <tr>
-                    <td>{{ $flight->id }}</td>
-                    <td>{{ $flight->name }}</td>
-                    <td>{{ $flight->destination }}</td>
+                    <td><?= $flight['number'] ?></td>
+                    <td><?= $flight['destination'] ?></td>
+                    <td><?= $flight['departure_time'] ?></td>
+                    <td><?= $flight['status'] ?></td>
                 </tr>
-            @endforeach
+            <?php endforeach; ?>
         </tbody>
     </table>
-</div>
 </body>
 </html>
