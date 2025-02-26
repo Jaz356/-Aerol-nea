@@ -15,10 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('model');
-            $table->string('manufacturer');
             $table->integer('capacity');
-            $table->integer('year');
-            $table->timestamps();
         });
     }
 
